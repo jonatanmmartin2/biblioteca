@@ -91,29 +91,30 @@ def ingresar_libro():
     '''
     Función para ingresar un nuevo autor en la biblioteca, solicita el nombre,
     el título del libro y la fecha de publicación. Primero comprueba si ya
-    se encuentra el autor en la biblioteca para agregar solo los libros
+    se encuentra el autor en la biblioteca para agregar solo los libros y la fecha
     en caso que no, lo incorpora como un nuevo autor
     en un diccionario como se establece.
     '''
-    
-    autor = {
-        'autor': '',
-        'libros' : {
-            'título': [],
-            'fecha': []
-        }
-    }
-
     nombre = input('Ingrese el nombre del autor\n')
     libro = input('Ingrese el título del libro\n')
     fecha = input('Ingrese la fecha de publicación\n')
 
-    autor['autor'] = nombre
-    autor['libros']['título'].append(libro)
-    autor['libros']['fecha'].append(fecha)
-
-    print('Se ha agregado con exito en BiblioLab')
-    biblioteca.append(autor)
+    for autor_existente in biblioteca:
+        if autor_existente['autor'] == nombre:
+            print('Se ha agregado con éxito en BiblioLab')
+            autor_existente['libros']['título'].append(libro)
+            autor_existente['libros']['fecha'].append(fecha)
+            break
+    else:
+        print('Se ha agregado con éxito en BiblioLab')
+        nuevo_autor = {
+            'autor': nombre,
+            'libros': {
+                'título': [libro],
+                'fecha': [fecha]
+            }
+        }
+        biblioteca.append(nuevo_autor)
 
 def main():
     '''
